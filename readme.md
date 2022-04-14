@@ -266,8 +266,7 @@ After that, shutdown the Pi, disconnect it from power, take off the clip reader 
 ## Credits
 
 When I initially started researching how to remove the supervisor password, I had no idea where to look. Thanks to my friends,
-I've been lead to the Badcaps forum where I've managed to find the Autopatcher script. Credit is also due to @terrymeow, to whom the laptop
-belongs and who helped me with going through the process and borrowed me her Raspberry Pi.
+I've been lead to the Badcaps forum where I've managed to find the Autopatcher script. Credit is also due to [https://twitter.com/jakluk\_](@jakluk_)/[https://github.com/terrymeow](@terrymeow), to whom the laptop belongs and who helped me with going through the process and borrowed me her Raspberry Pi.
 
 <hr>
 
