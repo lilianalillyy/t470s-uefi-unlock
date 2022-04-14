@@ -4,8 +4,9 @@ from os import mkdir, path, popen
 
 FLASHROM_BIN = "/usr/sbin/flashrom"
 MD5SUM_BIN = "/usr/bin/md5sum"
-#READER = "linux_spi:dev=/dev/spidev0.0"
-READER="internal"
+READER = "linux_spi:dev=/dev/spidev0.0"
+#READER="internal"
+
 # Root directory
 __root__ = path.abspath(path.dirname(__file__))
 
