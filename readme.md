@@ -11,7 +11,7 @@ Doing this will void your laptop's warranty.
 
 ### If you can boot to your OS
 
-You may not need to use the clip reader and RPi, nor open your device. Flashrom, the util used for flashing the chip, is also able to flash
+You may not need to use the clip reader and Pi, nor open your device. Flashrom, the util used for flashing the chip, is also able to flash
 internal chips of the device it's running on, however I have not tested it this way.
 
 TBD
@@ -20,18 +20,18 @@ TBD
 
 If you cannot boot to the OS, you will need these tools:
 
-- Raspberry Pi (tested with RPi 4)
+- Raspberry Pi (tested with Pi 4)
   - You may opt for using a chip programmer and connecting it to another working computer
-  - You may be able to use another board with GPIO pins, however the pinout may (and most likely WILL) differ from the one below. There also may be another software steps required for Flashrom to recognize the device. So please do your own research.
+  - You may be able to use another board with GPIO pins, however the pinout may (and most likely WILL) differ from the one below. There also may be another software steps required for Flashrom to recognize the chip. So please do your own research.
 - SOIC-8 clip reader (your mileage may vary)
-  - You will need this to connect the EEPROM chip to the RPi in order to read it's content, patch it and write the patched content back.
+  - You will need this to connect the EEPROM chip to the Pi in order to read it's content, patch it and write the patched content back.
   - From my research I've read people say that it is unreliable and you should desolder the chip instead, however I've had no issues with using the clip reader.
 - 6 F2F jumper wires
-  - These are required to connect the clip's pins to the GPIO pins of the RPi.
+  - These are required to connect the clip to the GPIO pins of the Pi.
 - Screw driver
-  - You will need to open the device, a standard #000 Phillips screw driver is enough to do the job, you probably have one laying around.
+  - You will need it to open the device - a standard #000 Phillips screw driver is enough to do the job, you probably have one laying around.
 - Time
-  - This took me around 30-50; minutes to do give or take, however it may take longer depending on your skills and luck.
+  - This took me around 30-50 minutes to do give or take, however it may take longer depending on your skills and luck.
 
 ### Sources
 
@@ -41,11 +41,11 @@ If you cannot boot to the OS, you will need these tools:
 
 ## 1. Setting up the Raspberry Pi
 
-### 1.1 Flashrom
-
 I recommend using Ubuntu as an OS. Do not try this on Windows, for the love of god please.
 
-You will need to install flashrom using the following command:
+### 1.1 Flashrom
+
+You will need to install `flashrom`. You can do so using the following command:
 
 ```
 sudo apt-get install flashrom
@@ -90,7 +90,7 @@ sudo apt-get install python3 python-is-python3
 
 ### 1.5 UEFIReplace
 
-The autopatcher script requires UEFIReplace, which is part of the package `uefitool-cli`. While the zip does contain it's own UEFIReplace binary, it will not work for Raspberry Pi as it's compiled for x86 CPUs and RPi is ARM-based.
+The autopatcher script requires `UEFIReplace`, which is part of the package `uefitool-cli`. While the zip does contain it's own UEFIReplace binary, it will not work for the RPi as it's compiled for x86 CPUs and RPi is ARM-based.
 
 Even if you are running on a x86-based device, I still recommended doing this.
 
@@ -138,24 +138,20 @@ Make sure to turn off your ThinkPad. Disconnect all cables and after that procee
 
 ### 2.1 Unscrew the back screws
 
-Turn the laptop around and use the Phillips screw driver to unscre all laptops. They will most likely stay in place,
-they are made to not fall out
+Turn the laptop around and use the Phillips screw driver to unscrew all screws. They will most likely stay in place,
+they are made to not fall out.
 
 <img src="https://i.imgur.com/Mw5Stoi.png" style="width: 500px"/>
 
-### 2.1 Take off the back
-
-The back should be easy to take off, though you may need to use a bit of force and something plastic and thin to pry off the clips inside (something like a guitar pick can be used).
-
 ### 2.1 Disconnecting the batteries
 
-First, you will need to unscrew three screws holding the battery. The batterry is then free and you can lift it up.
+First, you will need to unscrew three screws holding the battery. The battery is then free and you can lift it up.
 
 <img src="https://i.imgur.com/EQSQDar.png" style="width: 500px"/>
 
 <img src="https://i.imgur.com/cu9kNuE.png" style="width: 500px">
 
-You will also need to disconnect the CMOS batterry. Luckily, it's just disconnecting one small cable.
+You will also need to disconnect the CMOS battery. Luckily, it's just disconnecting one small cable.
 
 <img src="https://i.imgur.com/jwu8TXL.png" style="width: 500px">
 
@@ -174,9 +170,9 @@ It's sticky so it should hold in there. If it doesn't, that's okay, it's not imp
 
 First, let's take a look at our chip - in my case, it's a `Winbond 25Q128JVSQ`. It may be hard to read the name from the chip. Using your phone's flashlight usually helps, you can use a magnifying glass as well. If the chip model is different, it's most likely still okay, however you will need to search for the chip's datasheet / pinout (eg. google: brand model datasheet).
 
-This is the datasheet for the chip I have - https://pdf1.alldatasheet.com/datasheet-pdf/view/1243793/WINBOND/W25Q128JVSIQ.html - we are more interested in the 6th page - "Pin Configuration SOIC 208-mil".
+This is the datasheet for the chip mentioned above - https://pdf1.alldatasheet.com/datasheet-pdf/view/1243793/WINBOND/W25Q128JVSIQ.html - we are more interested in the 6th page - "Pin Configuration SOIC 208-mil".
 
-Look at the chip - there should be a dot in the corner.
+Look at the chip on the board - there should be a dot in the corner.
 
 <img src="https://i.imgur.com/8T2LIKJ.png" style="width: 500px">
 
@@ -186,13 +182,13 @@ Now look at the clip reader - there is one red line (could be a different color)
 
 ### Connecting to Raspberry Pi
 
-Now, connect the clip reader to the adapter board that came with it. Look at the Pin Configuration - there should be an image and the dot should be next to a pin number (it's gonna be either 1 or 5) - the adapter board also has numbers. The red line has to be aligned with the pin number of the pin with the dot next to it.
+Now, connect the clip reader to the adapter board that came with it. Look at the Pin Configuration - there should be a dot next to a pin number - the adapter board also has numbers. The red line has to be aligned with the pin number of the pin with the dot next to it.
 
-From the other side of the adapter board, connect the jumper wires to all pins except 3 and 7 - these are not used (if your chip is different, it may be different pins - check the datasheet and look for pins with a fucntion "Hold or Reset Input" and "Write Protect Input").
+From the other side of the adapter board, connect the jumper wires to all pins except 3 and 7 - these are not used (if your chip is different, it may be different pins - check the datasheet and look for pins with fucntions "Hold or Reset Input" and "Write Protect Input").
 
 <img src="https://i.imgur.com/veclVXz.png" style="width: 500px">
 
-Now, let's connect the jumper wires to the RPi's pins.
+Now, let's connect the jumper wires to the Pi's pins.
 
 This table is made for RPi 4. All previous RPi's with 40 pins should work as well (B+ and higher). If you are using a different board, you will have to find a pinout for the specific board, connect the chip's pin to the corresponding GPIO Pin.
 
@@ -209,7 +205,7 @@ This table is made for RPi 4. All previous RPi's with 40 pins should work as wel
 
 ## Checking the connection
 
-Now, we can power on the Raspberry. Once it booted up, go back into our working directory and run the dump script.
+Now, we can power on the Pi. Once it booted up, go back into our working directory and run the dump script.
 
 ```
 cd /home/ubuntu/t470s
