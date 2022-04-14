@@ -7,8 +7,7 @@ chip that needs to be flashed.
 ## Disclaimer
 
 I do not take any responsibility for the damage that may be caused to your device.
-Doing this will void your laptop's warranty, so if your device is still in warranty,
-try asking a local authorized Lenovo repair shop whether they can unlock it.
+Doing this will void your laptop's warranty.
 
 ### If you can boot to your OS
 
