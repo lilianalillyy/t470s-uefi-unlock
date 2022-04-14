@@ -9,13 +9,6 @@ chip that needs to be flashed.
 I do not take any responsibility for the damage that may be caused to your device.
 Doing this will void your laptop's warranty.
 
-### If you can boot to your OS
-
-You may not need to use the clip reader and Pi, nor open your device. Flashrom, the util used for flashing the chip, is also able to flash
-internal chips of the device it's running on, however I have not tested it this way.
-
-TBD
-
 ### Tools
 
 If you cannot boot to the OS, you will need these tools:
@@ -32,12 +25,6 @@ If you cannot boot to the OS, you will need these tools:
   - You will need it to open the device - a standard #000 Phillips screw driver is enough to do the job, you probably have one laying around.
 - Time
   - This took me around 30-50 minutes to do give or take, however it may take longer depending on your skills and luck.
-
-### Sources
-
-- https://github.com/bibanon/Coreboot-ThinkPads/wiki/Hardware-Flashing-with-Raspberry-Pi#reading-the-flashchip
-- https://html.alldatasheet.com/html-pdf/1243793/WINBOND/W25Q128JVSIQ/2117/6/W25Q128JVSIQ.html
-- https://www.badcaps.net/forum/showthread.php?t=87588&highlight=t470s
 
 ## 1. Setting up the Raspberry Pi
 
@@ -203,7 +190,7 @@ This table is made for RPi 4. All previous RPi's with 40 pins should work as wel
 |   7   | HOLD or RESET | Hold or Reset Input |  _not used_  |     _not used_     |
 |   8   |   3.3V/VCC    | Power               |      17      |     3.3V Power     |
 
-## Checking the connection
+## 4. Dumping the chip's content
 
 Now, we can power on the Pi. Once it booted up, go back into our working directory and run the dump script.
 
@@ -214,7 +201,7 @@ sudo python3 dump.py stock
 
 This will take a bit of time. If the script ends successfully with output "ok", we are ready to continue. Otherwise, the script has failed. In that case, power off the Pi, disconnect it from power, then check if you correctly connected the clip reader pins to the board, try to remove the clip from the chip and then put it on the chip again. If you fail continuously, you cannot continue. Feel free to open an issue, however you may end up with a dead end.
 
-## Patching the stock dump
+## 5. Patching the dump
 
 Now that we successfully dumped the contents of the chip, we can use the autopatcher to create a patched dump.
 
@@ -223,7 +210,7 @@ cd /home/ubuntu/t470s/lenovo_autopatcher
 ./autopatcher.sh ../stock/stock1.rom
 ```
 
-## Flashing the patched dump
+## 6. Flashing the patched dump
 
 We can now proceed to write the patched content to the chip:
 
@@ -242,12 +229,14 @@ Verifying flash... VERIFIED.
 
 After that, you can shutdown the Pi, disconnect it from the power and take the clip reader off the chip (don't disconnect it from the Pi, you will need it later to flash the stock).
 
+## 7. Booting up
+
 Now, boot up the device... it might take a bit longer, might reboot few times...
 
 You will see the Lenovo logo, then you'll get few beeps and errors. Press `F1` to go to the BIOS.
-It will prompt you for a password, enter any character and press enter. Next, you will see the device's Hardware ID and it will ask you to "Enter key". Just press Enter. It will then ask you to press Space bar two times. Do as it says. After that, turn off the machine. Disconnect it from power, connect the clip reader again and power up the Pi again.
+It will prompt you for a password, enter any character and press enter. Next, you will see the device's Hardware ID and it will ask you to "Enter key". Just press Enter. It will then ask you to press Space bar two times. Do as it says. After that, turn off the machine. Disconnect it from power (if you have connected back the batteries, disconnect them again), connect the clip reader again and power up the Pi again.
 
-## Flashing back the stock dump
+## 8. Flashing back the stock dump
 
 Now we need to flash the original contents of the chip back on it. Before we do that, let's check that the chip is readable.
 
@@ -264,4 +253,22 @@ Now, let's flash the original content back:
 sudo flashrom -p linux_spi:dev=/dev/spidev0.0 -w /home/ubuntu/t470s/stock/stock1.rom
 ```
 
+## 9. Moment of truth
+
 After that, shutdown the Pi, disconnect it from power, take off the clip reader and assemble your machine again. You should be able to boot the device up with no password.
+
+## Sources
+
+- https://github.com/bibanon/Coreboot-ThinkPads/wiki/Hardware-Flashing-with-Raspberry-Pi#reading-the-flashchip
+- https://html.alldatasheet.com/html-pdf/1243793/WINBOND/W25Q128JVSIQ/2117/6/W25Q128JVSIQ.html
+- https://www.badcaps.net/forum/showthread.php?t=87588&highlight=t470s
+
+## Credits
+
+When I initially started researching how to remove the supervisor password, I had no idea where to look. Thanks to my friends,
+I've been lead to the Badcaps forum where I've managed to find the Autopatcher script. Credit is also due to @terrymeow, to whom the laptop
+belongs and who helped me with going through the process and borrowed me her Raspberry Pi.
+
+<hr>
+
+2022 &ndash; Guide by Mia Lilian Morningstar
