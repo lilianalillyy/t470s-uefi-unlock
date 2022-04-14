@@ -168,7 +168,6 @@ This is the chip that will need to be flashed - right under the SSD.
 
 It might be hidden under some plastic - you can take it off, but don't throw it out and put it back later.
 It's sticky so it should hold in there. If it doesn't, that's okay, it's not important and you can leave it out.
-It's sticky so it should hold in there. If it doesn't, that's okay, it's not important and you can leave it out.
 
 <img src="https://i.imgur.com/u1CCE4G.png" style="width: 500px"/>
 
