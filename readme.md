@@ -116,7 +116,7 @@ To download the script, run these commands:
 
 ```
 cd /home/ubuntu/t470s
-curl -O https://raw.githubusercontent.com/VottusCode/t470s-uefi-unlock/main/dump.py
+curl -O https://raw.githubusercontent.com/lilianalillyy/t470s-uefi-unlock/main/dump.py
 ```
 
 ## 2. Opening the ThinkPad
@@ -266,8 +266,8 @@ After that, shutdown the Pi, disconnect it from power, take off the clip reader 
 ## Credits
 
 When I initially started researching how to remove the supervisor password, I had no idea where to look. Thanks to my friends,
-I've been lead to the Badcaps forum where I've managed to find the Autopatcher script. Credit is also due to [@jakluk\_](https://twitter.com/jakluk_)/[@terrymeow](https://github.com/terrymeow), to whom the laptop belongs and who helped me with going through the process and borrowed me her Raspberry Pi.
+I've been lead to the Badcaps forum where I've managed to find the Autopatcher script. Credit is also due to [@terrymeow](https://github.com/terrymeow), to whom the laptop belongs and who helped me with going through the process and borrowed me her Raspberry Pi.
 
 <hr>
 
-2022 &ndash; Guide by Mia Lilian Morningstar
+2022/2023 &ndash; Guide by Liliana
